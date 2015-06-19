@@ -1,0 +1,4 @@
+bump_thumbnail_routes:
+    resource: "@BumpThumbnailBundle/Controller/"
+    type:     annotation
+    prefix:   /thumbnailer/

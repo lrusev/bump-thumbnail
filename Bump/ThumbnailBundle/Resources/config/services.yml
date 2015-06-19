@@ -1,0 +1,37 @@
+parameters:
+    bump_thumbnail.generator.class: Bump\ThumbnailBundle\Thumbnail\Generator
+    bump_thumbnail.ffmpeg.class: FFMpeg\FFMpeg
+    bump_thumbnail.ffprobe.class: FFMpeg\FFProbe
+    bump_thumbnail.html2any.class: Bump\ThumbnailBundle\Converter\Html2Any
+    bump_thumbnail.twig_extension.class: Bump\ThumbnailBundle\Twig\ThumbnailExtension
+services:
+    bump_thumbnail.generator:
+        class: %bump_thumbnail.generator.class%
+        arguments:
+            - "@service_container"
+            - "%bump_thumbnail.thumbnail_relative_path%"
+
+    bump_thumbnail.ffmpeg:
+        class: %bump_thumbnail.ffmpeg.class%
+        factory_class: %bump_thumbnail.ffmpeg.class%
+        factory_method: create
+        arguments: [{ffmpeg.binaries: %bump_thumbnail.ffmpeg_binary%, ffprobe.binaries: %bump_thumbnail.ffprobe_binary%, timeout: %bump_thumbnail.binary_timeout%, ffmpeg.threads:%bump_thumbnail.threads_count% }, "@logger"]
+        lazy: true
+
+    bump_thumbnail.ffprobe:
+        class: %bump_thumbnail.ffprobe.class%
+        factory_class: %bump_thumbnail.ffprobe.class%
+        factory_method: create
+        arguments: [{ffmpeg.binaries: %bump_thumbnail.ffmpeg_binary%, ffprobe.binaries: %bump_thumbnail.ffprobe_binary%}, "@logger"]
+        lazy: true
+
+    bump_thumbnail.html2any:
+        class: %bump_thumbnail.html2any.class%
+        arguments: [%bump_thumbnail.html2any_base_url%, %bump_thumbnail.html2any_username%, %bump_thumbnail.html2any_password%, "@logger"]
+
+    bump_thumbnail.twig_extension:
+        class: %bump_thumbnail.twig_extension.class%
+        arguments:
+             - "@bump_thumbnail.generator"
+        tags:
+            - { name: twig.extension }

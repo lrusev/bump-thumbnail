@@ -1,0 +1,25 @@
+{
+    "name": "bump/bump-thumbnail",
+    "version": "0.0.1",
+    "type": "library",
+    "description": "This bundle provide services to generate thumbnails",
+    "keywords": ["bumpnetworks", "thumbnail", "generator"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.0",
+        "imagine/imagine": "dev-master",
+        "bump/bump-rest": "*",
+        "php-ffmpeg/php-ffmpeg": "0.5.*@dev",
+        "curl/curl": "dev-master",
+        "razielanarki/hyperlight": "0.1.*"
+    },
+    "authors": [{
+        "name": "Leonid Rusev",
+        "email": "lgrusev@od.bumpnetworks.com"
+    }],
+    "autoload": {
+        "psr-0": {
+            "Bump": ""
+        }
+    }
+}
