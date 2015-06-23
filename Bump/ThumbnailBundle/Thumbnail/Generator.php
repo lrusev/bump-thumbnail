@@ -139,6 +139,7 @@ class Generator
                 }
                 $path = $framePath;
             }
+
             //processing external
             if ($this->isExternal($mimeType)) {
                 $highlighted = false;
@@ -172,7 +173,7 @@ class Generator
                         $fs->mkdir(dirname($convertedPath));
                     }
 
-                    //call remove converter
+                    //call remote converter
                     $copyPath = $convertedPath.'.'.$ext;
                     if ($force || !$fs->exists($copyPath) || (time() - filemtime($copyPath)) >= self::REMOTE_TIMEOUT) {
                         $fs->remove($copyPath);

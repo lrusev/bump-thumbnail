@@ -13,8 +13,9 @@ class Html2Any
     private $username;
     private $password;
     private $logger;
+    private $enabled = true;
 
-    public function __construct($baseUrl = 'http://html2any.pdc.org/api', $username = null, $password = null, $logger = null)
+    public function __construct($baseUrl = 'http://html2any.pdc.org/api', $username = null, $password = null, $logger = null, $enabled = true)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
         if (strtolower(substr($this->baseUrl, -3)) != 'api') {
@@ -30,6 +31,20 @@ class Html2Any
         } else {
             $this->logger = $logger;
         }
+
+        $this->enabled = $enabled;
+    }
+
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    public function disable($flag = true)
+    {
+        $this->enabled = (bool)$flag;
+
+        return $this;
     }
 
     public function convertPDFToImage($accessUrl, $callbackUrl, array $params = array())
